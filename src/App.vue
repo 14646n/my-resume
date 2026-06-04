@@ -218,28 +218,9 @@ onMounted(() => {
               Связаться со мной
             </a>
           </div>
-
-          <!-- Точки: Больше, ниже, прижаты к правому краю блока кнопок -->
-          <div class="flex justify-end w-full max-w-[79px] gap-3 mt-1">
-            <div
-              class="w-3 h-3 bg-blue-500 rounded-full animate-bounce-dot"
-              style="animation-delay: 0s"
-            ></div>
-            <div
-              class="w-3 h-3 bg-purple-500 rounded-full animate-bounce-dot"
-              style="animation-delay: 0.15s"
-            ></div>
-            <div
-              class="w-3 h-3 bg-pink-500 rounded-full animate-bounce-dot"
-              style="animation-delay: 0.3s"
-            ></div>
-          </div>
         </div>
       </div>
     </section>
-
-    <!-- ... остальные секции (About, Skills и т.д.) без изменений ... -->
-    <!-- Я пропустил их для краткости, оставь их как они у тебя есть -->
 
     <section
       id="about"
