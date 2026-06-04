@@ -18,7 +18,7 @@ const status = reactive({
 });
 
 // Замени на свой URL Worker
-const WORKER_URL = "https://portfolio-contact.nikota555mak.workers.dev";
+const WORKER_URL = "https://my-resume.nikota555mak.workers.dev";
 
 const sendMessage = async () => {
   status.loading = true;
