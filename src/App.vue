@@ -356,106 +356,122 @@ onMounted(() => {
         >
           Проекты
         </h2>
-        <div class="grid md:grid-cols-2 gap-8">
+
+        <div class="grid md:grid-cols-2 gap-8 items-stretch">
           <div
             v-for="(p, i) in projects"
             :key="i"
-            class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col hover-lift group animate-fade-in-up"
+            class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col h-full hover-lift group animate-fade-in-up"
             :style="{ animationDelay: `${i * 0.15}s` }"
           >
-            <div class="flex items-start justify-between mb-3">
-              <h3
-                class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
-              >
-                {{ p.title }}
-              </h3>
-              <div class="flex gap-2">
-                <span
-                  v-if="p.type === 'commercial'"
-                  class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs font-bold rounded-full"
-                  >💼</span
+            <!-- 👇 Обёртка для всего переменного контента -->
+            <div class="flex-grow space-y-4">
+              <!-- Заголовок -->
+              <div class="flex items-start justify-between">
+                <h3
+                  class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
                 >
-                <span
-                  v-if="p.demo"
-                  class="px-2 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full animate-gradient-border cursor-pointer hover-pulse"
-                  @click.stop="showPCRDemo = true"
-                  >🎬</span
-                >
+                  {{ p.title }}
+                </h3>
+                <div class="flex gap-2">
+                  <span
+                    v-if="p.type === 'commercial'"
+                    class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs font-bold rounded-full"
+                    >💼</span
+                  >
+                  <span
+                    v-if="p.demo"
+                    class="px-2 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full animate-gradient-border cursor-pointer hover-pulse"
+                    @click.stop="showPCRDemo = true"
+                    >🎬</span
+                  >
+                </div>
               </div>
-            </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4 flex-grow">
-              {{ p.description }}
-            </p>
-            <div class="mb-4">
+
+              <!-- Описание -->
+              <p class="text-gray-600 dark:text-gray-400">
+                {{ p.description }}
+              </p>
+
+              <!-- Фичи -->
               <ul
                 class="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 space-y-1"
               >
                 <li
-                  v-for="(f, idx) in p.features.slice(0, 3)"
+                  v-for="(f, idx) in p.features"
                   :key="idx"
-                  class="animate-fade-in-up hover:text-blue-600 dark:hover:text-blue-400 transition cursor-default"
+                  class="hover:text-blue-600 dark:hover:text-blue-400 transition cursor-default"
                   :style="{ animationDelay: `${0.2 + idx * 0.1}s` }"
                 >
                   {{ f }}
                 </li>
               </ul>
-            </div>
-            <div
-              v-if="p.modules"
-              class="mb-5 space-y-3 border-t border-gray-100 dark:border-gray-700 pt-4"
-            >
-              <h4
-                class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2"
-              >
-                Модули платформы
-              </h4>
+
+              <!-- Модули (если есть) -->
               <div
-                v-for="(module, idx) in p.modules"
-                :key="idx"
-                class="p-3 bg-gray-50 dark:bg-gray-700/30 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-500 transition-colors animate-fade-in-up"
-                :style="{ animationDelay: `${0.4 + idx * 0.1}s` }"
+                v-if="p.modules"
+                class="space-y-3 border-t border-gray-100 dark:border-gray-700 pt-4"
               >
-                <div class="flex items-center justify-between mb-1">
-                  <span
-                    class="font-semibold text-gray-800 dark:text-gray-200 text-sm"
-                    >{{ module.name }}</span
-                  >
-                  <span
-                    v-if="module.name.includes('PCR') && p.demo"
-                    class="px-2 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-[10px] rounded-full font-bold cursor-pointer hover:bg-purple-200 dark:hover:bg-purple-900/50 transition hover-pulse"
-                    @click.stop="showPCRDemo = true"
-                    >🎬 Демо</span
-                  >
-                </div>
-                <p
-                  class="text-xs text-gray-600 dark:text-gray-400 mb-2 leading-relaxed"
+                <h4
+                  class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider"
                 >
-                  {{ module.description }}
-                </p>
-                <div class="flex flex-wrap gap-1">
-                  <span
-                    v-for="tech in module.stack.slice(0, 5)"
-                    :key="tech"
-                    class="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-[10px] rounded font-medium border border-blue-100 dark:border-blue-800"
-                    >{{ tech }}</span
+                  Модули платформы
+                </h4>
+                <div
+                  v-for="(module, idx) in p.modules"
+                  :key="idx"
+                  class="p-3 bg-gray-50 dark:bg-gray-700/30 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-500 transition-colors animate-fade-in-up"
+                  :style="{ animationDelay: `${0.4 + idx * 0.1}s` }"
+                >
+                  <div class="flex items-center justify-between mb-1">
+                    <span
+                      class="font-semibold text-gray-800 dark:text-gray-200 text-sm"
+                      >{{ module.name }}</span
+                    >
+                    <span
+                      v-if="module.name.includes('PCR') && p.demo"
+                      class="px-2 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-[10px] rounded-full font-bold cursor-pointer hover:bg-purple-200 dark:hover:bg-purple-900/50 transition hover-pulse"
+                      @click.stop="showPCRDemo = true"
+                      >🎬 Демо</span
+                    >
+                  </div>
+                  <p
+                    class="text-xs text-gray-600 dark:text-gray-400 mb-2 leading-relaxed"
                   >
-                  <span
-                    v-if="module.stack.length > 5"
-                    class="text-[10px] text-gray-400 self-center"
-                    >+{{ module.stack.length - 5 }}</span
-                  >
+                    {{ module.description }}
+                  </p>
+                  <div class="flex flex-wrap gap-1">
+                    <span
+                      v-for="tech in module.stack.slice(0, 5)"
+                      :key="tech"
+                      class="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-[10px] rounded font-medium border border-blue-100 dark:border-blue-800"
+                      >{{ tech }}</span
+                    >
+                    <span
+                      v-if="module.stack.length > 5"
+                      class="text-[10px] text-gray-400 self-center"
+                      >+{{ module.stack.length - 5 }}</span
+                    >
+                  </div>
                 </div>
               </div>
+
+              <!-- Теги стека -->
+              <div class="flex flex-wrap gap-2">
+                <span
+                  v-for="tech in p.stack.slice(0, 6)"
+                  :key="tech"
+                  class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition cursor-default"
+                  >{{ tech }}</span
+                >
+              </div>
             </div>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span
-                v-for="tech in p.stack.slice(0, 6)"
-                :key="tech"
-                class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition cursor-default"
-                >{{ tech }}</span
-              >
-            </div>
-            <div class="flex gap-3 mt-auto">
+            <!-- 👆 Конец flex-grow обёртки -->
+
+            <!-- 👇 Кнопки/ссылки — всегда внизу благодаря mt-auto -->
+            <div
+              class="flex gap-3 mt-6 pt-4 border-t border-gray-100 dark:border-gray-700"
+            >
               <a
                 v-if="p.link"
                 :href="p.link"
