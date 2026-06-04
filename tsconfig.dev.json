@@ -1,0 +1,17 @@
+{
+  "include": [
+    "functions/src/**/*.ts",
+    "functions/test/**/*.ts"
+  ],
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": "lib",
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2020",
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  }
+}
