@@ -423,7 +423,7 @@ onMounted(() => {
                   </p>
                   <div class="flex flex-wrap gap-1">
                     <span
-                      v-for="tech in module.stack.slice(0, 5)"
+                      v-for="tech in module.stack"
                       :key="tech"
                       class="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-[10px] rounded font-medium border border-blue-100 dark:border-blue-800"
                       >{{ tech }}</span
@@ -440,7 +440,7 @@ onMounted(() => {
               <!-- Теги стека -->
               <div class="flex flex-wrap gap-2">
                 <span
-                  v-for="tech in p.stack.slice(0, 6)"
+                  v-for="tech in p.stack"
                   :key="tech"
                   class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition cursor-default"
                   >{{ tech }}</span

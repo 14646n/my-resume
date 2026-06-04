@@ -35,31 +35,46 @@ export const personalInfo = {
 // --- SKILLS ---
 export const skills = {
   frontend: [
-    "Vue 3 (Composition API)",
+    "Vue 3",
     "TypeScript",
-    "Vite",
+    "JavaScript",
+    "HTML5",
+    "CSS3",
+    "TailwindCSS",
     "Pinia",
+    "Vite",
     "Vue Router",
-    "Tailwind CSS",
-    "PrimeVue",
-    "HTML5/CSS3",
   ],
   backend: [
-    "Firebase (Auth, Firestore, Storage, Functions, Hosting)",
-    "Cloudflare Workers",
+    "Python", // 👈 Добавьте
+    "Django 5", // 👈 Добавьте
+    "Django REST Framework", // 👈 Добавьте
     "Node.js",
-    "Web Crypto API",
-    "File API / Blob API",
+    "REST API",
+    "OpenAPI 3.0",
+  ],
+  database: [
+    "PostgreSQL",
+    "Firebase Firestore",
+    "Redis", // 👈 Добавьте (если использовали)
+  ],
+  devops: [
+    "Git",
+    "GitHub",
+    "GitLab",
+    "CI/CD",
+    "Firebase Hosting",
+    "Cloudflare Workers",
+    "GitHub Actions",
   ],
   tools: [
-    "Git",
-    "GitHub Actions (CI/CD)",
-    "Firebase CLI",
-    "Figma",
-    "VS Code",
+    "Celery",
+    "Sentry",
+    "Prometheus",
+    "Loki",
     "Vitest",
-    "ESLint",
-    "Prettier",
+    "Pytest",
+    "Playwright",
   ],
 };
 
@@ -68,7 +83,7 @@ export const experience = [
   {
     company: 'АО «Группа "СВЭЛ»',
     role: "Fullstack Developer",
-    period: "2025 — Наст. время",
+    period: "Июль 2025 — Наст. время",
     description:
       "Разработка внутренней ERP-системы для отдела продаж и технического сопровождения.",
     achievements: [
@@ -77,7 +92,17 @@ export const experience = [
       "Спроектировал архитектуру для работы со вложенными структурами данных (до 4-го уровня).",
       "Внедрил типизацию TypeScript для снижения ошибок при работе с JSON-структурами.",
     ],
-    stack: ["Vue 3", "TypeScript", "Internal API"],
+    stack: [
+      "Vue 3",
+      "TypeScript",
+      "Internal API",
+      "Python",
+      "Django 5",
+      "DRF",
+      "PostgreSQL",
+      "Redis",
+      "Celery",
+    ],
   },
 ];
 
