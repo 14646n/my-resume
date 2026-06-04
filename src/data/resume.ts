@@ -25,9 +25,9 @@ export const personalInfo = {
   name: "Макеев Никита Павлович",
   role: "Fullstack Developer (Vue 3 / Firebase)",
   location: "Екатеринбург, РФ",
-  email: "your.email@example.com",
-  telegram: "https://t.me/your_telegram",
-  github: "https://github.com/yourusername",
+  email: "nikota555mak@gmail.com",
+  telegram: "https://t.me/a14646",
+  github: "https://github.com/14646n",
   about:
     "Fullstack-разработчик с 1 годом коммерческого опыта. Специализируюсь на создании сложных SPA на Vue 3 и интеграции с облачными сервисами. Разрабатываю enterprise-решения для автоматизации бизнес-процессов и научное ПО.",
 };

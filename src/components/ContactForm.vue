@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
+
+type ContactMethod = "telegram" | "email" | "both";
 
 const form = reactive({
   name: "",
@@ -7,15 +9,16 @@ const form = reactive({
   message: "",
 });
 
+const contactMethod = ref<ContactMethod>("telegram");
+
 const status = reactive({
   loading: false,
   success: false,
   error: null as string | null,
 });
 
-// 👇 Замени на свой URL Worker
-const WORKER_URL =
-  "https://portfolio-contact.nikota555mak.workers.dev/api/contact";
+// Замени на свой URL Worker
+const WORKER_URL = "https://portfolio-contact.nikota555mak.workers.dev";
 
 const sendMessage = async () => {
   status.loading = true;
@@ -30,6 +33,7 @@ const sendMessage = async () => {
         name: form.name,
         email: form.email,
         message: form.message,
+        contactMethod: contactMethod.value,
       }),
     });
 
@@ -42,10 +46,13 @@ const sendMessage = async () => {
     form.name = "";
     form.email = "";
     form.message = "";
+
+    setTimeout(() => {
+      status.success = false;
+    }, 5000);
   } catch (error: any) {
     console.error("Send Error:", error);
-    status.error =
-      error.message || "Ошибка отправки. Напишите мне в Telegram напрямую.";
+    status.error = error.message || "Ошибка отправки. Напишите мне напрямую.";
   } finally {
     status.loading = false;
   }
@@ -59,6 +66,82 @@ const sendMessage = async () => {
     <h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
       Написать мне
     </h3>
+
+    <!-- Переключатель способа связи -->
+    <div class="mb-6">
+      <label
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3"
+      >
+        Куда отправить сообщение?
+      </label>
+      <div class="grid grid-cols-3 gap-3">
+        <label
+          class="flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer transition-all duration-200"
+          :class="[
+            contactMethod === 'telegram'
+              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+              : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500',
+          ]"
+        >
+          <input
+            type="radio"
+            v-model="contactMethod"
+            value="telegram"
+            class="sr-only"
+          />
+          <div class="text-center">
+            <div class="text-2xl mb-1">✈️</div>
+            <div class="text-xs font-medium text-gray-700 dark:text-gray-300">
+              Telegram
+            </div>
+          </div>
+        </label>
+
+        <label
+          class="flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer transition-all duration-200"
+          :class="[
+            contactMethod === 'email'
+              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+              : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500',
+          ]"
+        >
+          <input
+            type="radio"
+            v-model="contactMethod"
+            value="email"
+            class="sr-only"
+          />
+          <div class="text-center">
+            <div class="text-2xl mb-1">📧</div>
+            <div class="text-xs font-medium text-gray-700 dark:text-gray-300">
+              Email
+            </div>
+          </div>
+        </label>
+
+        <label
+          class="flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer transition-all duration-200"
+          :class="[
+            contactMethod === 'both'
+              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+              : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500',
+          ]"
+        >
+          <input
+            type="radio"
+            v-model="contactMethod"
+            value="both"
+            class="sr-only"
+          />
+          <div class="text-center">
+            <div class="text-2xl mb-1">✈️📧</div>
+            <div class="text-xs font-medium text-gray-700 dark:text-gray-300">
+              Оба
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
 
     <form @submit.prevent="sendMessage" class="space-y-4">
       <div>
@@ -103,11 +186,19 @@ const sendMessage = async () => {
         ></textarea>
       </div>
 
+      <!-- Статусы -->
       <div
         v-if="status.success"
         class="p-3 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg text-sm"
       >
-        ✅ Сообщение отправлено! Я получил его в Telegram и на почту.
+        ✅ Сообщение успешно отправлено!
+        <span v-if="contactMethod === 'telegram'"
+          >Я получил его в Telegram.</span
+        >
+        <span v-else-if="contactMethod === 'email'"
+          >Я получил его на Email.</span
+        >
+        <span v-else>Я получил его в Telegram и на Email.</span>
       </div>
 
       <div
@@ -117,6 +208,7 @@ const sendMessage = async () => {
         ❌ {{ status.error }}
       </div>
 
+      <!-- Кнопка -->
       <button
         type="submit"
         :disabled="status.loading"
